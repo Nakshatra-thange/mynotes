@@ -1,0 +1,98 @@
+:root{
+  --bg:#fff;--bg2:#f6f5f4;--side:#ececea;--text:#1d1d1f;--sub:#86868b;--line:#e5e5e7;
+  --accent:#e0a800;--sel:#f5d76e;--sel-text:#1d1d1f;--hover:rgba(0,0,0,.04);--tbl:#d8d8dc;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#1e1e1e;--bg2:#262626;--side:#2a2928;--text:#f5f5f7;--sub:#98989d;--line:#38383a;
+  --accent:#ffd60a;--sel:#9a8236;--sel-text:#fff;--hover:rgba(255,255,255,.06);--tbl:#48484a;
+}}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.app{display:grid;grid-template-columns:210px 300px 1fr;height:100vh}
+
+/* sidebar */
+.sidebar{background:var(--side);padding:14px 10px;border-right:1px solid var(--line)}
+.traffic{display:flex;gap:8px;padding:2px 6px 26px}
+.traffic i{width:12px;height:12px;border-radius:50%;display:block}
+.folder{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;font-size:14px}
+.folder.active{background:var(--hover);color:var(--accent);font-weight:500}
+.folder svg{width:17px;height:17px}
+.folder span{flex:1}.folder b{font-weight:400;color:var(--sub);font-size:13px}
+
+/* list */
+.list{background:var(--bg);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.list header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 6px}
+.h-title strong{display:block;font-size:15px}.h-title small{color:var(--sub);font-size:12px}
+.search{margin:8px 14px 6px;display:flex;align-items:center;gap:6px;background:var(--bg2);border-radius:9px;padding:6px 9px;color:var(--sub)}
+.search svg{width:14px;height:14px}
+.search input{flex:1;background:none;border:0;outline:0;color:var(--text);font:inherit;font-size:13.5px}
+.items{overflow:auto;padding:0 14px 20px;flex:1}
+.group-label{font-size:13px;font-weight:700;padding:16px 4px 6px;position:sticky;top:0;background:var(--bg);z-index:1}
+.item{padding:9px 12px;border-radius:10px;cursor:pointer;position:relative}
+.item+.item::before{content:"";position:absolute;left:12px;right:12px;top:0;height:1px;background:var(--line)}
+.item.sel,.item.sel+.item::before,.item:hover+.item::before{background:transparent}
+.item.sel::before{background:transparent}
+.item.sel{background:var(--sel);color:var(--sel-text)}
+.item .t{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .m{font-size:12.5px;color:var(--sub);display:flex;gap:8px;white-space:nowrap;overflow:hidden;margin-top:1px}
+.item.sel .m{color:inherit;opacity:.85}
+.item .m span:last-child{overflow:hidden;text-overflow:ellipsis}
+.item .m span:first-child{flex:none;color:var(--text);opacity:.8}
+.item.sel .m span:first-child{color:inherit}
+.none{color:var(--sub);text-align:center;padding:40px 0;font-size:13px}
+
+/* toolbar */
+.editor-wrap{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0}
+.toolbar{display:flex;align-items:center;gap:8px;padding:12px 16px;position:relative}
+.group{display:flex;background:var(--bg2);border-radius:999px;padding:2px 6px}
+.spacer{flex:1}
+.icon{width:34px;height:30px;border-radius:999px;display:grid;place-items:center;color:var(--text);opacity:.8}
+.icon:hover{background:var(--hover);opacity:1}
+.icon.on{color:var(--accent)}
+.aa{font-size:15px;opacity:.9}
+.back{display:none}
+.menu{display:none;position:absolute;top:50px;left:16px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:6px;min-width:190px;box-shadow:0 12px 40px rgba(0,0,0,.18);z-index:10}
+.menu.open{display:block}
+.menu button{display:block;width:100%;text-align:left;padding:7px 12px;border-radius:7px;font-size:14px}
+.menu button:hover{background:var(--accent);color:#1d1d1f}
+.menu hr{border:0;height:1px;background:var(--line);margin:5px 0}
+
+/* editor */
+.date{text-align:center;font-size:12px;color:var(--sub);padding:4px 0 8px}
+.editor{flex:1;overflow:auto;padding:12px 8% 80px;outline:0;font-size:16px;line-height:1.55;caret-color:var(--accent)}
+.editor>*:first-child{margin-top:0}
+.editor h1{font-size:28px;font-weight:700;margin:0 0 .4em;letter-spacing:-.01em}
+.editor h2{font-size:21px;font-weight:700;margin:1.2em 0 .35em}
+.editor h3{font-size:17px;font-weight:700;margin:1em 0 .3em}
+.editor p,.editor div{margin:.3em 0}
+.editor ul,.editor ol{padding-left:1.4em;margin:.3em 0}
+.editor a{color:var(--accent);text-decoration:none}.editor a:hover{text-decoration:underline}
+.editor code{background:var(--bg2);padding:1px 6px;border-radius:5px;font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.editor img{max-width:100%;border-radius:10px;display:block;margin:.7em 0}
+.editor table{border-collapse:collapse;width:100%;margin:.8em 0;font-size:15px;border-radius:8px}
+.editor td,.editor th{border:1px solid var(--tbl);padding:7px 11px;text-align:left;min-width:60px}
+.editor th{background:var(--bg2);font-weight:600}
+.editor ul.check{list-style:none;padding-left:0}
+.editor ul.check li{position:relative;padding-left:30px;min-height:1.55em}
+.editor ul.check li::before{content:"";position:absolute;left:3px;top:.28em;width:17px;height:17px;border:1.6px solid var(--sub);border-radius:50%;cursor:pointer}
+.editor ul.check li.done::before{background:var(--accent);border-color:var(--accent);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d1d1f' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E");background-size:75%;background-position:center;background-repeat:no-repeat}
+.editor ul.check li.done{color:var(--sub);text-decoration:line-through}
+.empty{display:none;flex:1;place-items:center;color:var(--sub)}
+.editor-wrap.blank .editor,.editor-wrap.blank .date{display:none}
+.editor-wrap.blank .empty{display:grid}
+
+/* mobile */
+@media (max-width:860px){.app{grid-template-columns:300px 1fr}.sidebar{display:none}}
+@media (max-width:620px){
+  .app{grid-template-columns:1fr}
+  .editor-wrap{position:fixed;inset:0;background:var(--bg);transform:translateX(100%);transition:transform .25s}
+  body.reading .editor-wrap{transform:none}
+  .back{display:grid}
+  .editor{padding:8px 20px 80px}
+}
